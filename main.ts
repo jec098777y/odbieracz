@@ -1,15 +1,28 @@
-let odleglosc = 0
-let strip = robotbit.rgb()
-radio.setGroup(23)
-function jedztyl() {
-    let odleglosc: number;
+radio.onReceivedString(function on_received_string(receivedstring: string) {
+    if (receivedstring == "przud") {
+        jedzprzud()
+    } else if (receivedstring == "tyl") {
+        jedztyl()
+    } else if (receivedstring == "skretwlewo") {
+        skretwlewo()
+    }
     
+})
+input.onButtonPressed(Button.A, function on_button_pressed_a() {
+    robotbit.Servo(robotbit.Servos.S1, -20)
+    pause(500)
+    robotbit.Servo(robotbit.Servos.S1, 40)
+    pause(500)
+    robotbit.Servo(robotbit.Servos.S1, -20)
+})
+function jedztyl() {
+    let odleglosc2: number;
     while (true) {
         robotbit.MotorRunDual(robotbit.Motors.M1A, -150, robotbit.Motors.M2A, 150)
         pause(1000)
         robotbit.MotorRunDual(robotbit.Motors.M1A, 0, robotbit.Motors.M2A, 0)
-        odleglosc = sonar.ping(DigitalPin.P13, DigitalPin.P15, PingUnit.Centimeters)
-        if (odleglosc < 10) {
+        odleglosc2 = sonar.ping(DigitalPin.P13, DigitalPin.P15, PingUnit.Centimeters)
+        if (odleglosc2 < 10) {
             strip.setPixelColor(3, neopixel.colors(NeoPixelColors.Red))
             strip.show()
             pause(500)
@@ -19,7 +32,20 @@ function jedztyl() {
         }
         
     }
-    basic.showNumber(odleglosc)
+    basic.showNumber(odleglosc2)
+}
+
+function skretwlewo() {
+    robotbit.MotorRunDual(robotbit.Motors.M1A, -150, robotbit.Motors.M2A, -150)
+    pause(500)
+    robotbit.MotorRunDual(robotbit.Motors.M1A, 0, robotbit.Motors.M2A, 0)
+    robotbit.MotorRunDual(robotbit.Motors.M1A, 0, robotbit.Motors.M2A, 0)
+    robotbit.MotorRunDual(robotbit.Motors.M1A, 0, robotbit.Motors.M2A, 0)
+    strip.setPixelColor(0, neopixel.colors(NeoPixelColors.Red))
+    strip.setPixelColor(3, neopixel.colors(NeoPixelColors.Red))
+    strip.show()
+    pause(500)
+    strip.clear()
 }
 
 function jedzprzud() {
@@ -33,31 +59,12 @@ function jedzprzud() {
     pause(500)
     strip.clear()
     strip.show()
-    let odleglosc = sonar.ping(DigitalPin.P13, DigitalPin.P15, PingUnit.Centimeters)
-    basic.showNumber(odleglosc)
+    odleglosc3 = sonar.ping(DigitalPin.P13, DigitalPin.P15, PingUnit.Centimeters)
+    basic.showNumber(odleglosc3)
 }
 
-function skretwlewo() {
-    
-    robotbit.MotorRunDual(robotbit.Motors.M1A, -150, robotbit.Motors.M2A, -150)
-    pause(500)
-    robotbit.MotorRunDual(robotbit.Motors.M1A, 0, robotbit.Motors.M2A, 0)
-    robotbit.MotorRunDual(robotbit.Motors.M1A, 0, robotbit.Motors.M2A, 0)
-    robotbit.MotorRunDual(robotbit.Motors.M1A, 0, robotbit.Motors.M2A, 0)
-    strip.setPixelColor(0, neopixel.colors(NeoPixelColors.Red))
-    strip.setPixelColor(3, neopixel.colors(NeoPixelColors.Red))
-    strip.show()
-    pause(500)
-    strip.clear()
-}
-
-radio.onReceivedString(function on_received_string(receivedstring: string) {
-    if (receivedstring == "przud") {
-        jedzprzud()
-    } else if (receivedstring == "tyl") {
-        jedztyl()
-    } else if (receivedstring == "skretwlewo") {
-        skretwlewo()
-    }
-    
-})
+let odleglosc3 = 0
+let strip : neopixel.Strip = null
+let odleglosc = 0
+strip = robotbit.rgb()
+radio.setGroup(23)
