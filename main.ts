@@ -9,11 +9,9 @@ radio.onReceivedString(function on_received_string(receivedstring: string) {
     
 })
 input.onButtonPressed(Button.A, function on_button_pressed_a() {
-    robotbit.Servo(robotbit.Servos.S1, -20)
+    robotbit.GeekServo(robotbit.Servos.S1, -20)
     pause(500)
-    robotbit.Servo(robotbit.Servos.S1, 40)
-    pause(500)
-    robotbit.Servo(robotbit.Servos.S1, -20)
+    robotbit.GeekServo(robotbit.Servos.S1, 0)
 })
 function jedztyl() {
     let odleglosc2: number;

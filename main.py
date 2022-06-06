@@ -9,11 +9,10 @@ radio.on_received_string(on_received_string)
 
 def on_button_pressed_a():
     
-    robotbit.servo(robotbit.Servos.S1, -20)
+    robotbit.geek_servo(robotbit.Servos.S1, -20)
     pause(500)
-    robotbit.servo(robotbit.Servos.S1, 40)
-    pause(500)
-    robotbit.servo(robotbit.Servos.S1, -20)
+    robotbit.geek_servo(robotbit.Servos.S1, 0)
+
 input.on_button_pressed(Button.A, on_button_pressed_a)
 
 def jedztyl():
